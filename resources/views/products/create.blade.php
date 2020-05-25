@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
 	<div class="card padding">
 		<header>
@@ -10,5 +11,6 @@
 			@include('products.form')
 		</div>
 	</div>
-</div>
+</div>}
+
 @endsection
