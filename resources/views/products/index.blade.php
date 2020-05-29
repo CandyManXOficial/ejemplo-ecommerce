@@ -14,5 +14,8 @@
                 </div>
             @endforeach
         </div>
+        <div class="actions text-center">
+            {{ $product->links() }}
+        </div>
     </div>
 @endsection
