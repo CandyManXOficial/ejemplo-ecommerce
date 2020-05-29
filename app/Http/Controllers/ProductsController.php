@@ -15,23 +15,25 @@ class ProductsController extends Controller
     public function index()
     {
         //
+        return null;
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        return view('products.create');
+        $product = new Product();
+        return view('products.create', ['product' => $product]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
@@ -57,17 +59,20 @@ class ProductsController extends Controller
     public function show($id)
     {
         //
+        return null;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
-        //
+        $product = Product::find($id);
+
+        return view('products.edit', ['product' => $product]);
     }
 
     /**
@@ -80,6 +85,7 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return null;
     }
 
     /**
@@ -91,5 +97,6 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
+        return null;
     }
 }

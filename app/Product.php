@@ -15,4 +15,12 @@ class Product extends Model
      * */
     //protected $table = 'Products';
     protected $fillable = ['title', 'imageurl','description', 'price'];
+
+    public function url(){
+        return $this->id ? 'productos.update' : 'productos.store';
+    }
+
+    public function method(){
+        return $this->id ? 'PUT' : 'POST';
+    }
 }
