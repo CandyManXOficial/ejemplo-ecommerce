@@ -16,7 +16,7 @@
 	</div>
 
 	<div>
-		{!! Form::button('Guardar', ['class' => 'btn btn-primary']) !!}
+		{!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
 	</div>
 
 {!! Form::close() !!}
