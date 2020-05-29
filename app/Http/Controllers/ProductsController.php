@@ -105,7 +105,7 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
-        return null;
+        Product::destroy($id);
+        return redirect()->route('productos.index');
     }
 }
