@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductsCollection;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,10 @@ class ProductsController extends Controller
     {
         $product = Product::paginate(10);
         if ($request->wantsJson()){
-            return $product->toJson();
+//            Retornamos Json puro con los campos tal cual provienen de la BD
+//            return $product->toJson();
+//          Usamos una colección para controlar la información que nostramos
+            return new ProductsCollection($product);
         }
         return view('products.index', ['product' => $product]);
     }
