@@ -38,6 +38,7 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">{{ $productCount }}</li>
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
