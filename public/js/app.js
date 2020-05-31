@@ -1980,28 +1980,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       name: 'Products Component',
-      products: [{
-        title: 'Cama',
-        price: 500,
-        description: 'De cedro marrón'
-      }, {
-        title: 'Ropero',
-        price: 200,
-        description: 'De ocre'
-      }, {
-        title: 'Bicicleta',
-        price: 5300,
-        description: 'De aluminio'
-      }, {
-        title: 'Sillón',
-        price: 2500,
-        description: 'De bambú'
-      }]
+      products: [],
+      endpoint: "/productos"
     };
+  },
+  created: function created() {
+    this.fetchProducts();
+  },
+  methods: {
+    fetchProducts: function fetchProducts() {
+      var _this = this;
+
+      axios.get(this.endpoint).then(function (response) {
+        console.log(response.data.data);
+        _this.products = response.data.data;
+      });
+    },
+    beforeEnter: function beforeEnter(el) {
+      el.style.opacity = 0;
+      el.style.transform = 'scale(0)';
+      el.style.transition = 'all 1s cubic-bezier(0.4, 0.0, 0.2, 1)';
+    },
+    enter: function enter(el) {
+      setTimeout(function () {
+        el.style.opacity = 1;
+        el.style.transform = 'scale(1)';
+      }, 300);
+    },
+    leave: function leave(el) {
+      el.style.opacity = 0;
+      el.style.transform = 'scale(0)';
+    }
   }
 });
 
@@ -37607,7 +37627,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("h4", { staticClass: "card-subtitle" }, [
-          _vm._v(_vm._s(_vm.product.price))
+          _vm._v(_vm._s(_vm.product.humanPrice))
         ]),
         _vm._v(" "),
         _c("p", { staticClass: "card-text" }, [
@@ -37640,10 +37660,21 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "row" },
+    "transition-group",
+    {
+      staticClass: "row",
+      attrs: { tag: "div", css: false, name: "fadeIn" },
+      on: {
+        "before-enter": _vm.beforeEnter,
+        enter: _vm.enter,
+        leave: _vm.leave
+      }
+    },
     _vm._l(_vm.products, function(product) {
-      return _c("product-card-component", { attrs: { product: product } })
+      return _c("product-card-component", {
+        key: product.id,
+        attrs: { product: product }
+      })
     }),
     1
   )

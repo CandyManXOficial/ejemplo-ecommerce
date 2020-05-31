@@ -1,7 +1,14 @@
 <template>
-    <div class="row">
-        <product-card-component v-bind:product="product" v-for="product in products"></product-card-component>
-    </div>
+    <transition-group
+        tag="div"
+        :css="false"
+        name="fadeIn"
+        @before-enter="beforeEnter"
+        @enter="enter"
+        @leave="leave"
+        class="row">
+        <product-card-component :key="product.id" v-bind:product="product" v-for="product in products"></product-card-component>
+    </transition-group>
 </template>
 
 <script>
@@ -9,12 +16,34 @@
         data(){
             return{
                 name: 'Products Component',
-                products: [
-                    {title: 'Cama', price: 500, description: 'De cedro marrón'},
-                    {title: 'Ropero', price: 200, description: 'De ocre'},
-                    {title: 'Bicicleta', price: 5300, description: 'De aluminio'},
-                    {title: 'Sillón', price: 2500, description: 'De bambú'}
-                ]
+                products: [],
+                endpoint: "/productos"
+            }
+        },
+        created() {
+            this.fetchProducts();
+        },
+        methods: {
+            fetchProducts(){
+                axios.get(this.endpoint).then((response) => {
+                    console.log(response.data.data)
+                    this.products = response.data.data;
+                });
+            },
+            beforeEnter(el){
+                el.style.opacity = 0;
+                el.style.transform = 'scale(0)';
+                el.style.transition = 'all 1s cubic-bezier(0.4, 0.0, 0.2, 1)';
+            },
+            enter(el){
+                setTimeout(()=>{
+                    el.style.opacity = 1;
+                    el.style.transform = 'scale(1)';
+                }, 300);
+            },
+            leave(el){
+                el.style.opacity = 0;
+                el.style.transform = 'scale(0)';
             }
         }
     }
