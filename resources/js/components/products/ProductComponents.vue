@@ -7,7 +7,11 @@
         @enter="enter"
         @leave="leave"
         class="row">
-        <product-card-component :key="product.id" v-bind:product="product" v-for="product in products"></product-card-component>
+<!--    Agregamos un segundo argumento al "v-for" el cuál es "index", éste argumento nos sirve para saber en que posición se encuentra
+        el elemento que está siendo procesado por el ciclo-->
+<!--        Agregamos un atributo "data-index" de HTML para almacenar la variable "index" que recibimos del "v-for". Accederemos a éste
+            atributo desde el metodo "enter" de JavaScript-->
+        <product-card-component :key="product.id" v-bind:product="product" :data-index="index" v-for="(product, index) in products"></product-card-component>
     </transition-group>
 </template>
 
@@ -36,10 +40,17 @@
                 el.style.transition = 'all 1s cubic-bezier(0.4, 0.0, 0.2, 1)';
             },
             enter(el){
+                /**
+                 * Aqui definimos una constante nombrada "delay" en la cual almacenaremos
+                 * el valor del argumento "index" sustraido del "v-for". Con ésta variable
+                 * determinaremos el tiempo de delay entre cada uno de los elementos de
+                 * la lista resultante del "v-for".
+                 **/
+                const delay = 100 * el.dataset.index;
                 setTimeout(()=>{
                     el.style.opacity = 1;
                     el.style.transform = 'scale(1)';
-                }, 300);
+                }, delay);
             },
             leave(el){
                 el.style.opacity = 0;
