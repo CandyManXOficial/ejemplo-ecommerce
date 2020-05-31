@@ -2,7 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\ShoppingCart;
 use Closure;
+use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class SetShoppingCart
 {
@@ -15,6 +18,11 @@ class SetShoppingCart
      */
     public function handle($request, Closure $next)
     {
+        $sessionName = 'shopping_cart_id';
+        $shopping_cart_id = Session::get($sessionName);
+        $shopping_cart = ShoppingCart::findOrCreateById($shopping_cart_id);
+        Session::put($sessionName, $shopping_cart->id);
+        $request->shopping_cart = $shopping_cart;
         return $next($request);
     }
 }
