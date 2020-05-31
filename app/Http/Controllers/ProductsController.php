@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ProductsCollection;
 use App\Product;
+use App\ShoppingCart;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -20,6 +21,12 @@ class ProductsController extends Controller
      */
     public function index(Request $request)
     {
+        $sessionName = 'shopping_cart_id';
+        $shopping_cart_id = $request->session()->get($sessionName);
+
+        $shopping_cart = ShoppingCart::findOrCreateById($shopping_cart_id);
+        $request->session()->put($sessionName, $shopping_cart->id);
+
         $product = Product::paginate(10);
         if ($request->wantsJson()){
 //            Retornamos Json puro con los campos tal cual provienen de la BD
@@ -27,7 +34,7 @@ class ProductsController extends Controller
 //          Usamos una colección para controlar la información que nostramos
             return new ProductsCollection($product);
         }
-        return view('products.index', ['product' => $product]);
+        return view('products.index', ['product' => $product, 'shopping_cart' => $shopping_cart]);
     }
 
     /**
