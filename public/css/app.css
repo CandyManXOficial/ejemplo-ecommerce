@@ -10941,6 +10941,10 @@ a.text-dark:focus {
   padding: 1em;
 }
 
+div > .card {
+  margin-bottom: 2em;
+}
+
 .actions {
   margin-top: 1em;
 }
