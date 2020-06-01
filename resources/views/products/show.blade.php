@@ -13,11 +13,13 @@
 
                         <p class="card-text">{{ $product->description }}</p>
                         <div class="card-actions">
-                            {!! Form::open(['method' => 'POST', 'url' => '/in_shopping_cart']) !!}
-                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <input type="submit" class="btn btn-success" value="Agregar al carrito">
+{{--                            Sustituimos éste código por un componente de VUE para evitar que la página se tenga que recargar--}}
+{{--                            {!! Form::open(['method' => 'POST', 'url' => '/in_shopping_cart']) !!}--}}
+{{--                            <input type="hidden" name="product_id" value="{{ $product->id }}">--}}
+{{--                            <input type="submit" class="btn btn-success" value="Agregar al carrito">--}}
 
-                            {!! Form::close() !!}
+{{--                            {!! Form::close() !!}--}}
+                            <add-products-component-button :product='{!! json_encode($product) !!}'></add-products-component-button>
 
                             @include('products.delete')
                         </div>
