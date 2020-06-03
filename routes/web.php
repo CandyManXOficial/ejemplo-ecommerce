@@ -20,6 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/carrito', 'ShoppingCartController@show')->name('shopping_cart.show');
+Route::get('/carrito/productos', 'ShoppingCartController@products')->name('shopping_cart.products');
 
 Route::resource('productos', 'ProductsController');
 Route::resource('in_shopping_cart', 'ProductInShoppingCartController', ['only' => ['store', 'destroy']]);
